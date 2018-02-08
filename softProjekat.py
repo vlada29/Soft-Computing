@@ -130,14 +130,10 @@ def select_roi(image_orig, image_bin):
 
 
 def create_ann():
-    '''
-    Implementirati veštačku neuronsku mrežu sa 28x28 ulaznih neurona i jednim skrivenim slojem od 128 neurona.
-    Odrediti broj izlaznih neurona. Aktivaciona funkcija je sigmoid.
-    '''
     ann = Sequential()
     # Postaviti slojeve neurona mreže 'ann'
     ann.add(Dense(244, input_dim=900, activation='sigmoid'))
-    ann.add(Dense(32, activation='sigmoid'))
+    ann.add(Dense(34, activation='sigmoid'))
     return ann
     
 def train_ann(ann, X_train, y_train):
@@ -470,6 +466,14 @@ def treniraj():
     image_color8_resized = cv2.resize(image_color8, (width, height))
     preparedInputs8 = prepare_for_ann(izdvojip(image_color8_resized, 120))
     
+    image_color9 = load_image('n/1.jpg') #5
+    image_color9_resized = cv2.resize(image_color9, (width, height))
+    preparedInputs9 = prepare_for_ann(izdvojip(image_color9_resized, 120))
+    
+    image_color10 = load_image('n/11.jpg') #3
+    image_color10_resized = cv2.resize(image_color10, (width, height))
+    preparedInputs10 = prepare_for_ann(izdvojip(image_color10_resized, 55))
+    
         #input definitions: 
     alphabet = ['1',
                 '2', 'n', 'o', 'v', 'o', 'n', 'a', 's', 'e', 'lj', 'e',
@@ -478,7 +482,7 @@ def treniraj():
                 'p', 'r', 'b',
                 '9', 
                 '6', '4', 'b', 'u', 'k', 'o', 'v', 'a', 'c',
-                'j', 'g', 'i', 'd'
+                'j', 'g', 'i', 'd', '5', '3'
                 
                 ]
         #prepared input
@@ -514,8 +518,14 @@ def treniraj():
     pp8.append(preparedInputs8[7])
     pp8.append(preparedInputs8[10])
     
+    pp9=[]
+    pp9.append(preparedInputs9[0])
+    
+    pp10=[]
+    pp10.append(preparedInputs10[0])
+    
     inputs=[]
-    inputs=pp1+pp2+pp3+pp4+pp5+pp6+pp7+pp8
+    inputs=pp1+pp2+pp3+pp4+pp5+pp6+pp7+pp8+pp9+pp10
     
     outputs = convert_output(alphabet)
     
@@ -608,7 +618,7 @@ def prepoznajSlova(ann, img, mod):
                 'p', 'r', 'b',
                 '9', 
                 '6', '4', 'b', 'u', 'k', 'o', 'v', 'a', 'c',
-                'j', 'g', 'i', 'd'
+                'j', 'g', 'i', 'd', '5', '3'
                 
                 ]
     
@@ -655,8 +665,6 @@ def prepoznajLiniju(inputString):
     busesNS=['1klisa', '1centar', '1liman1',
          '2centar', '2novonaselje', 
          '3petrovaradin', '3centar', '3detelinara',
-         '5temerinskiput', '5centar', 
-         '6podbara',
          '7anovonaselje',
          '8novonaselje', '8centar',
          '9novonaselje', '9petrovaradin',
